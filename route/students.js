@@ -38,25 +38,26 @@ router.get('/:id', function (req, res) {
   res.send(student[id - 1].name);
 });
 
-router.post('/add', function (req, res) {
-  let name = req.body.name;
+router.post('/', function (req, res) {
+  let nameObj = req.body;
+  let name = nameObj.name;
   if (name === '') { res.sendStatus(400) };
-  student[student.length + 1].id = student.length + 1;
-  student[student.length + 1].name = name;
+  student.push({ id:student.length + 1, name: name });
   res.status(201).send(`${name} has been added.`);
 });
 
-router.put('/put/:name/:id', function (req, res) {
-  let name = req.params.name;
+router.put('/:id', function (req, res) {
+  let nameObj = req.body;
+  let name = nameObj.name;
   if (name === '') { res.sendStatus(400) };
-  let index = req.params.id;
-  if (id > student.length) { res.send(404) };
-  student[index].id = id;
+  let index = parseInt(req.params.id);
+  if (index > student.length) { res.send(404) };
+  student[index].id = index;
   student[index].name = name;
   res.status(201).send(`${name} has been added.`);
 });
 
-router.delete('/cut/:name/:id', function (req, res) {
+router.delete('/:id', function (req, res) {
   let name = req.params.name;
   if (name === '') { res.sendStatus(400) };
   let index = req.params.id;
