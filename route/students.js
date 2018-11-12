@@ -61,7 +61,8 @@ router.delete('/:id', function (req, res) {
   let name = req.params.name;
   if (name === '') { res.sendStatus(400) };
   let index = req.params.id;
-  if (id > student.length) { res.send(404) };
-  res.send('cut');
+  if (index > student.length) { res.send(404) };
+  let removed = student.splice(index,1);
+  res.status(201).send(`${removed} has been removed.`);
 });
 
